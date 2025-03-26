@@ -1,8 +1,7 @@
-name: Custom Build
-            - name: Upload artifact
+            - name: Upload-artifact
   # You may pin to the exact commit or the version.
   # uses: echapmanFromBunnings/upload-artifact@337a5a69b603f31f06936a711562a72b63b22151
-  uses: echapmanFromBunnings/upload-artifact@v3
+  uses: actions/upload-artifact@v3
   with:
     # Artifact name
     name: 
@@ -19,6 +18,8 @@ name: Custom Build
     retention-days: # optional, default is 0
     # Optional working directory to start the `path` search from
     working-directory: # optional, default is ./
+
+name: Custom Build
           
 on:
   workflow_dispatch:
