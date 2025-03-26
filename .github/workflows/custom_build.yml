@@ -35,7 +35,7 @@ on:
         description: 'Screen Width (only for custom display)'
         required: false
         type: string
-      screen_height:
+      screen_height:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         description: 'Screen Height (only for custom display)'
         required: false
         type: string
@@ -124,9 +124,6 @@ jobs:
 
     overwrite: # optional, default is false
     # If true, hidden files will be included in the artifact. If false, hidden files will be excluded from the artifact.
-
-    include-hidden-files: # optional, default is false
-          
 
       - name: Install ESP-IDF
         run: |
