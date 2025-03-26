@@ -198,22 +198,29 @@ jobs:
           idf.py clean
           idf.py build
 
-      - name: Package Artifacts into ZIP
-        run: |
-          ZIP_FILE="ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}.zip"
-          mkdir -p artifacts
-          cp build/partition_table/partition-table.bin artifacts/
-          cp build/*.bin artifacts/
-          cd artifacts
-          zip "../$ZIP_FILE" ./*
-          cd ..
+      -- name: Package Artifacts into ZIP
+  run: |
+    ZIP_FILE="ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}.zip"
+    mkdir -p artifacts
+    cp build/partition_table/partition-table.bin artifacts/
+    cp build/*.bin artifacts/
+    cd artifacts
+    zip "../$ZIP_FILE" ./*
+    cd ..
+    
+- name: Verify Artifacts
+  run: |
+    if [ ! -f "ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}.zip" ]; then
+      echo "Artifact zip file not found!"
+      exit 1
+    fi
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}
-          path: ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}.zip
-
+- name: Upload Build Artifacts
+  uses: actions/upload-artifact@v3
+  with:
+    name: ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}
+    path: ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}.zip
+      
       - name: Build Summary
         run: |
           echo "### Build Complete! 🎉" >> $GITHUB_STEP_SUMMARY
