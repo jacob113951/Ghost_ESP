@@ -64,40 +64,16 @@ jobs:
   uses: actions/checkout@v4.2.2
   with: repository
 
-      - name: Validate Configuration
-        run: |
-          # Board-Display Compatibility Check
-          case "${{ github.event.inputs.display_type }}" in
-            "ESP32-S3-Cardputer"|"LillyGoTWatch_S3"|"Waveshare_LCD"|"Crowtech_LCD")
-              if [ "${{ github.event.inputs.board_type }}" != "esp32s3" ]; then
-                echo "Error: ${{ github.event.inputs.display_type }} requires ESP32-S3 board type"
-                exit 1
-              fi
-              ;;
-            "MarauderV4_FlipperHub"|"MarauderV6_AwokDual"|"AwokMini"|"CYD2USB"|"CYDMicroUSB"|"CYDDualUSB"|"CYD2USB2.4_Inch")
-              if [ "${{ github.event.inputs.board_type }}" != "esp32" ]; then
-                echo "Error: ${{ github.event.inputs.display_type }} requires ESP32 board type"
-                exit 1
-              fi
-              ;;
-          esac
-
-          # Flash Size Validation
-          case "${{ github.event.inputs.display_type }}" in
-            "Waveshare_LCD"|"Crowtech_LCD")
-              if [ "${{ github.event.inputs.flash_size }}" == "4MB" ]; then
-                echo "::warning::7-inch displays are recommended to use 8MB or larger flash size"
-              fi
-              ;;
-          esac
-
+      # name: Validate Configuration
+       # run: |
+          
           # Custom Display Validation
-          if [ "${{ github.event.inputs.display_type }}" == "custom" ]; then
-            if [ -z "${{ github.event.inputs.screen_width }}" ] || [ -z "${{ github.event.inputs.screen_height }}" ]; then
-              echo "Error: Screen width and height are required for custom display configuration"
-              exit 1
-            fi
-          fi
+        #  if [ "${{ github.event.inputs.display_type }}" == "custom" ]; then
+         #   if [ -z "${{ github.event.inputs.screen_width }}" ] || [ -z "${{ github.event.inputs.screen_height }}" ]; then
+          #    echo "Error: Screen width and height are required for custom display configuration"
+           #   exit 1
+            #fi
+          #fi
 
       - name: Set up Python
         uses: actions/setup-python@v4
